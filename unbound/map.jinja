@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 # vim: ft=jinja
 
-{% import_yaml salt.file.dirname(slspath)+"/defaults.yaml" as defaults %}
-{% import_yaml salt.file.dirname(slspath)+"/osmap.yaml" as osmap %}
-{% import_yaml salt.file.dirname(slspath)+"/codenamemap.yaml" as codemap %}
+{% import_yaml slspath+"/defaults.yaml" as defaults %}
+{% import_yaml slspath+"/osmap.yaml" as osmap %}
+{% import_yaml slspath+"/codenamemap.yaml" as codemap %}
 
 {# get the settings for the os_family grain #}
 {% set osfam = salt['grains.filter_by'](osmap) or {} %}

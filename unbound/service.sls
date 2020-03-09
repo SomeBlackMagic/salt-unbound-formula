@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # vim: ft=sls
 
-{% from salt.file.dirname(slspath)+"/map.jinja" import unbound with context %}
+{% from slspath+"/map.jinja" import unbound with context %}
 
 unbound_service:
     service:
@@ -16,7 +16,7 @@ unbound_defaults:
         - user: root
         - group: root
         - mode: 644
-        - source: salt://{{salt.file.dirname(slspath)}}/files/default.jinja
+        - source: salt://{{slspath}}/files/default.jinja
         - require_in:
             - service: unbound_service
 {%- endif -%}
