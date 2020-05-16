@@ -8,9 +8,8 @@ unbound_package:
         - name: {{unbound.package}}
 
 unbound_download_cache:
-  file.managed:
-    - name: {{unbound.cache_file}}
-    - source: ftp://ftp.internic.net/domain/named.cache
+  cmd.run:
+    - name: "curl -o {{unbound.cache_file}} ftp://ftp.internic.net/domain/named.cache"
     - skip_verify: True
     - user: root
     - group: root
