@@ -12,4 +12,3 @@ unbound_download_cache:
     - name: "curl -o {{unbound.cache_file}} ftp://ftp.internic.net/domain/named.cache"
     - skip_verify: True
     - user: root
-    - group: root
