@@ -13,11 +13,3 @@ unbound_config:
     - mode: 0440
     - context:
         config: {{unbound | json }}
-
-unbound_download_cache:
-  file.managed:
-    - name: {{unbound.cache_file}}
-    - source: ftp://ftp.internic.net/domain/named.cache
-    - user: root
-    - group: root
-
