@@ -6,6 +6,8 @@ driver:
   use_sudo: false
   privileged: true
   run_command: /lib/systemd/systemd
+  publish:
+    - '22'
 
 provisioner:
   name: salt_solo
