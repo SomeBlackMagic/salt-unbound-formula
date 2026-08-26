@@ -41,6 +41,13 @@ platforms:
     driver:
       image: debian:12
       run_command: /lib/systemd/systemd
+      env:
+        - container=docker
+      tmpfs:
+        - /run
+        - /run/lock
+      volume:
+        - /sys/fs/cgroup:/sys/fs/cgroup:rw
       provision_command:
         - apt-get update && apt-get install -y systemd-sysv
 
@@ -48,6 +55,13 @@ platforms:
     driver:
       image: ubuntu:22.04
       run_command: /lib/systemd/systemd
+      env:
+        - container=docker
+      tmpfs:
+        - /run
+        - /run/lock
+      volume:
+        - /sys/fs/cgroup:/sys/fs/cgroup:rw
       provision_command:
         - apt-get update && apt-get install -y systemd-sysv
 
@@ -55,6 +69,13 @@ platforms:
     driver:
       image: ubuntu:24.04
       run_command: /lib/systemd/systemd
+      env:
+        - container=docker
+      tmpfs:
+        - /run
+        - /run/lock
+      volume:
+        - /sys/fs/cgroup:/sys/fs/cgroup:rw
       provision_command:
         - apt-get update && apt-get install -y systemd-sysv
 
