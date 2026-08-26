@@ -15,7 +15,18 @@
 {% do defaults.unbound.update(oscode) %}
 
 {# merge the pillar:lookup dict into the defaults/os specific dict #}
-{% set lookup = salt['pillar.get']('unbound:lookup', default=defaults.unbound, merge=True) %}
+{# salt['pillar.get'] with merge=True returns None (not the default) in Salt 3008+ when the pillar value is None #}
+{% set _lookup_raw = salt['pillar.get']('unbound:lookup') %}
+{% if _lookup_raw is mapping %}
+  {% set lookup = salt['slsutil.merge'](defaults.unbound, _lookup_raw, strategy='recurse') %}
+{% else %}
+  {% set lookup = defaults.unbound %}
+{% endif %}
 
 {# merge the actual unbound pillar into the above combined dict #}
-{% set unbound = salt['pillar.get']('unbound', default=lookup, merge=True) %}
+{% set _unbound_raw = salt['pillar.get']('unbound') %}
+{% if _unbound_raw is mapping %}
+  {% set unbound = salt['slsutil.merge'](lookup, _unbound_raw, strategy='recurse') %}
+{% else %}
+  {% set unbound = lookup %}
+{% endif %}
