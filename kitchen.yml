@@ -26,8 +26,9 @@ provisioner:
           - unbound
   pillars_from_files:
     unbound.sls: pillar.example
-  is_file_root: true
-  vendor_path: /tmp/kitchen/vendor
+  salt_copy_filter:
+    - .kitchen
+    - .git
 
 verifier:
   name: inspec
