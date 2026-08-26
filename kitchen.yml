@@ -1,0 +1,75 @@
+# -*- coding: utf-8 -*-
+# vim: ft=yaml
+---
+driver:
+  name: docker
+  use_sudo: false
+  privileged: true
+  run_command: /lib/systemd/systemd
+
+provisioner:
+  name: salt_solo
+  log_level: debug
+  salt_install: bootstrap
+  salt_bootstrap_options: -dX stable
+  salt_version: latest
+  formula: unbound
+  state_top:
+    base:
+      '*':
+        - unbound
+  pillars:
+    top.sls:
+      base:
+        '*':
+          - unbound
+  pillars_from_files:
+    unbound.sls: pillar.example
+  is_file_root: true
+  vendor_path: /tmp/kitchen/vendor
+
+verifier:
+  name: inspec
+  sudo: true
+
+platforms:
+  - name: debian-12
+    driver:
+      image: debian:12
+      run_command: /lib/systemd/systemd
+      provision_command:
+        - apt-get update && apt-get install -y systemd-sysv
+
+  - name: ubuntu-2204
+    driver:
+      image: ubuntu:22.04
+      run_command: /lib/systemd/systemd
+      provision_command:
+        - apt-get update && apt-get install -y systemd-sysv
+
+  - name: ubuntu-2404
+    driver:
+      image: ubuntu:24.04
+      run_command: /lib/systemd/systemd
+      provision_command:
+        - apt-get update && apt-get install -y systemd-sysv
+
+  - name: rockylinux-9
+    driver:
+      image: rockylinux:9
+      run_command: /usr/lib/systemd/systemd
+      provision_command:
+        - dnf install -y systemd
+
+  - name: amazonlinux-2023
+    driver:
+      image: amazonlinux:2023
+      run_command: /usr/lib/systemd/systemd
+      provision_command:
+        - dnf install -y systemd
+
+suites:
+  - name: default
+    verifier:
+      inspec_tests:
+        - test/integration/default
