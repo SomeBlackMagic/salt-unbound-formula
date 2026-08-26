@@ -4,19 +4,19 @@
 {% from slspath+"/map.jinja" import unbound with context %}
 
 unbound_service:
-    service:
-        - running
-        - name: {{unbound.service}}
+    service.running:
+        - name: {{ unbound.service }}
+        - enable: True
 
-{% if salt['grains'].get('os') == 'Ubuntu' -%}
+{% if unbound.get('defaults_file') -%}
 unbound_defaults:
     file.managed:
-        - name: /etc/default/unbound
+        - name: {{ unbound.defaults_file }}
         - template: jinja
         - user: root
         - group: root
-        - mode: 644
-        - source: salt://{{slspath}}/files/default.jinja
+        - mode: '0644'
+        - source: salt://{{ slspath }}/files/default.jinja
         - require_in:
             - service: unbound_service
-{%- endif -%}
+{%- endif %}

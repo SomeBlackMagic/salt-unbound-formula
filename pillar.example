@@ -1,191 +1,87 @@
 unbound:
-    server:
-        interfaces:
-            - 8.8.8.8
-        domains_insecure:
-            - domain.tld
-        local_zones:
-            - domain.tld
-        options:
-            # an option is config settings which can't have multiple clauses
-            - key: <option_name>
-              value: <option_value>
-    stubzones:
-        - zonename: domain.tld:
-          options:
-            - key: stub-addr
-              value: 8.8.8.8
-            - key: stub-addr
-              value: 8.8.4.4
-    forwardzones:
-        - zonename: domain2.tld:
-          options:
-            - key: forward-addr
-              value: 8.8.8.8
-            - key: forward-addr
-              value: 8.8.4.4
-    lookup:
-        config_file: /usr/local/etc/unbound/unbound.conf #only if you don't want the default location
+  # Override lookup defaults (package name, paths, etc.)
+  lookup:
+    # config_file: /usr/local/etc/unbound/unbound.conf  # only if not using default location
 
-Full JSON Example:
+  server:
+    # Interfaces to listen on
+    interfaces:
+      - 127.0.0.1
+      - ::1
 
-{
-    "unbound" : {
-        "server" : {
-            "private_domains" : [
-                "pcdummy.lan",
-                "mlab.pcdummy.lan",
-                "lxch.lan"
-            ],
-            "private_addresses" : [
-                "172.16.0.0/12",
-                "192.168.0.0/16",
-                "169.254.0.0/16",
-                "fd00::/8",
-                "fe80::/10",
-                "10.0.0.0/8",
-                "::ffff:0:0/96"
-            ],
-            "options" : [
-                {
-                    "value" : "yes",
-                    "key" : "use-syslog"
-                },
-                {
-                    "value" : "1",
-                    "key" : "verbosity"
-                },
-                {
-                    "value" : "yes",
-                    "key" : "hide-identity"
-                },
-                {
-                    "value" : "yes",
-                    "key" : "hide-version"
-                },
-                {
-                    "value" : "yes",
-                    "key" : "harden-glue"
-                },
-                {
-                    "value" : "yes",
-                    "key" : "harden-dnssec-stripped"
-                },
-                {
-                    "value" : "yes",
-                    "key" : "use-caps-for-id"
-                },
-                {
-                    "value" : "4",
-                    "key" : "num-threads"
-                },
-                {
-                    "value" : "8",
-                    "key" : "msg-cache-slabs"
-                },
-                {
-                    "value" : "8",
-                    "key" : "rrset-cache-slabs"
-                },
-                {
-                    "value" : "8",
-                    "key" : "infra-cache-slabs"
-                },
-                {
-                    "value" : "8",
-                    "key" : "key-cache-slabs"
-                },
-                {
-                    "value" : "256m",
-                    "key" : "rrset-cache-size"
-                },
-                {
-                    "value" : "128m",
-                    "key" : "msg-cache-size"
-                },
-                {
-                    "value" : "1m",
-                    "key" : "so-rcvbuf"
-                },
-                {
-                    "value" : "10000",
-                    "key" : "unwanted-reply-threshold"
-                }
-            ],
-            "interfaces" : [
-                "127.0.0.1",
-                "::1",
-                "10.167.160.18",
-                "fd57:c87d:f1ee:ee00:f::18"
-            ],
-            "domains_insecure" : [
-                "pcdummy.lan",
-                "mlab.pcdummy.lan",
-                "lxch.lan"
-            ],
-            "acls" : [
-                "127.0.0.1/8 allow",
-                "::1 allow",
-                "10.0.0.0/8 allow",
-                "192.168.0.0/16 allow",
-                "fd57:c87d:f1ee::/48 allow"
-            ]
-        },
-        "forwardzones" : [
-            {
-                "zonename" : ".",
-                "options" : [
-                    {
-                        "value" : "2001:4860:4860::8888",
-                        "key" : "forward-addr"
-                    },
-                    {
-                        "value" : "2001:4860:4860::8844",
-                        "key" : "forward-addr"
-                    }
-                ]
-            }
-        ],
-        "stubzones" : [
-            {
-                "zonename" : "pcdummy.lan",
-                "options" : [
-                    {
-                        "value" : "10.167.160.2",
-                        "key" : "stub-addr"
-                    },
-                    {
-                        "value" : "fd57:c87d:f1ee:ee01:f::2",
-                        "key" : "stub-addr"
-                    }
-                ]
-            },
-            {
-                "zonename" : "mlab.pcdummy.lan",
-                "options" : [
-                    {
-                        "value" : "10.167.160.2",
-                        "key" : "stub-addr"
-                    },
-                    {
-                        "value" : "fd57:c87d:f1ee:ee01:f::2",
-                        "key" : "stub-addr"
-                    }
-                ]
-            },
-            {
-                "zonename" : "lxch.lan",
-                "options" : [
-                    {
-                        "value" : "10.128.2.9",
-                        "key" : "stub-addr"
-                    },
-                    {
-                        "value" : "fd57:c87d:f1ee:2::9",
-                        "key" : "stub-addr"
-                    }
-                ]
-            }
-        ]
-    }
-}
+    # Access control lists (CIDR notation + action)
+    acls:
+      - 127.0.0.0/8 allow
+      - ::1 allow
+      - 10.0.0.0/8 allow
+      - 192.168.0.0/16 allow
+
+    # Domains to skip DNSSEC validation for
+    domains_insecure:
+      - example.lan
+
+    # Private domains (respond to queries from private address space)
+    private_domains:
+      - example.lan
+
+    # Private addresses (RFC1918 + others)
+    private_addresses:
+      - 10.0.0.0/8
+      - 172.16.0.0/12
+      - 192.168.0.0/16
+      - 169.254.0.0/16
+      - fd00::/8
+      - fe80::/10
+
+    # Local zones
+    local_zones:
+      - example.lan static
+
+    # Generic server options (key/value pairs for unbound.conf server section)
+    options:
+      - key: verbosity
+        value: 1
+      - key: use-syslog
+        value: yes
+      - key: hide-identity
+        value: yes
+      - key: hide-version
+        value: yes
+      - key: harden-glue
+        value: yes
+      - key: harden-dnssec-stripped
+        value: yes
+      - key: use-caps-for-id
+        value: yes
+      - key: num-threads
+        value: 4
+      - key: rrset-cache-size
+        value: 256m
+      - key: msg-cache-size
+        value: 128m
+      - key: unwanted-reply-threshold
+        value: 10000
+
+  # Stub zones — forward specific zones to authoritative servers
+  stubzones:
+    - zonename: example.lan
+      options:
+        - key: stub-addr
+          value: 192.168.1.1
+        - key: stub-addr
+          value: 192.168.1.2
+
+  # Forward zones — forward queries for specific zones upstream
+  forwardzones:
+    - zonename: "."
+      options:
+        - key: forward-addr
+          value: 9.9.9.9
+        - key: forward-addr
+          value: 149.112.112.112
+
+  # Remote control section
+  # remote:
+  #   options:
+  #     - key: control-enable
+  #       value: yes

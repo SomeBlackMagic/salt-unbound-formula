@@ -8,6 +8,8 @@ Debian:
   cache_file: /etc/unbound/named.cache
   package: unbound
   service: unbound
+  # /etc/default/unbound exists on Debian/Ubuntu systems
+  defaults_file: /etc/default/unbound
 FreeBSD:
   config_file: /usr/local/etc/unbound/unbound.conf
   cache_file: /usr/local/etc/unbound/named.cache
@@ -21,8 +23,3 @@ RedHat:
   package: unbound
   service: unbound
 Suse: {}
-Ubuntu:
-  config_file: /etc/unbound/unbound.conf
-  cache_file: /etc/unbound/named.cache
-  package: unbound
-  service: unbound

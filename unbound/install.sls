@@ -5,10 +5,15 @@
 
 unbound_package:
     pkg.installed:
-        - name: {{unbound.package}}
+        - name: {{ unbound.package }}
 
 unbound_download_cache:
-  cmd.run:
-    - name: "curl -o {{unbound.cache_file}} ftp://ftp.internic.net/domain/named.cache"
+  file.managed:
+    - name: {{ unbound.cache_file }}
+    - source: https://www.internic.net/domain/named.cache
     - skip_verify: True
     - user: root
+    - group: root
+    - mode: '0644'
+    - require:
+        - pkg: unbound_package
