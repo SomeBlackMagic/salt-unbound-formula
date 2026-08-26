@@ -11,6 +11,7 @@ provisioner:
   name: salt_solo
   log_level: debug
   salt_install: bootstrap
+  salt_url: https://github.com/saltstack/salt-bootstrap/releases/latest/download/bootstrap-salt.sh
   salt_bootstrap_options: -dX stable
   salt_version: latest
   formula: unbound
