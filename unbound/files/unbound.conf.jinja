@@ -83,7 +83,7 @@ forward-zone:
     {% endfor %}
 {%- endif -%}
 
-{%- if config.remote.options is defined %}
+{%- if config.get('remote') and config.remote.options is defined %}
 remote-control:
   {%- for option in config.remote.options %}
     {{option.key}}: {{option.value}}
