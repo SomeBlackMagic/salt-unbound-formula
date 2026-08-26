@@ -45,8 +45,9 @@ jobs:
 
       - name: Run salt-lint
         if: matrix.lint-tool == 'salt-lint'
+        # Only lint .sls files — .jinja files are config templates, not Salt states
         run: |
-          git ls-files -- '*.sls' '*.jinja' '*.j2' | xargs --no-run-if-empty salt-lint
+          git ls-files -- '*.sls' | xargs --no-run-if-empty salt-lint
 
   kitchen:
     name: Kitchen (${{ matrix.instance }})

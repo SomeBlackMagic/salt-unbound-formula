@@ -5,11 +5,11 @@
 
 unbound_config:
   file.managed:
-    - name: {{unbound.config_file}}
-    - source: salt://{{slspath}}/files/unbound.conf.jinja
+    - name: {{ unbound.config_file }}
+    - source: salt://{{ slspath }}/files/unbound.conf.jinja
     - template: jinja
     - user: root
     - group: root
-    - mode: 0440
+    - mode: '0440'
     - context:
-        config: {{unbound | json }}
+        config: {{ unbound | json }}
