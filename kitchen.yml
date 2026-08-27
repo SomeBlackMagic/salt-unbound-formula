@@ -35,7 +35,7 @@ verifier:
 platforms:
   - name: debian-12
     driver:
-      image: ghcr.io/someblackmagic/salt-unbound-formula/debian-12:latest
+      image: ghcr.io/someblackmagic/salt-unbound-formula/kitchen-debian-12:latest
       run_command: /lib/systemd/systemd
       env:
         - container=docker
@@ -47,7 +47,7 @@ platforms:
 
   - name: ubuntu-2204
     driver:
-      image: ghcr.io/someblackmagic/salt-unbound-formula/ubuntu-2204:latest
+      image: ghcr.io/someblackmagic/salt-unbound-formula/kitchen-ubuntu-2204:latest
       run_command: /lib/systemd/systemd
       env:
         - container=docker
@@ -59,7 +59,7 @@ platforms:
 
   - name: ubuntu-2404
     driver:
-      image: ghcr.io/someblackmagic/salt-unbound-formula/ubuntu-2404:latest
+      image: ghcr.io/someblackmagic/salt-unbound-formula/kitchen-ubuntu-2404:latest
       run_command: /lib/systemd/systemd
       env:
         - container=docker
@@ -71,12 +71,12 @@ platforms:
 
   - name: rockylinux-9
     driver:
-      image: ghcr.io/someblackmagic/salt-unbound-formula/rockylinux-9:latest
+      image: ghcr.io/someblackmagic/salt-unbound-formula/kitchen-rockylinux-9:latest
       run_command: /usr/lib/systemd/systemd
 
   - name: amazonlinux-2023
     driver:
-      image: ghcr.io/someblackmagic/salt-unbound-formula/amazonlinux-2023:latest
+      image: ghcr.io/someblackmagic/salt-unbound-formula/kitchen-amazonlinux-2023:latest
       run_command: /usr/lib/systemd/systemd
       env:
         - container=docker

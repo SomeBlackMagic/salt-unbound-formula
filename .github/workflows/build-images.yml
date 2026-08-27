@@ -13,15 +13,14 @@ name: Build Kitchen Images
         type: choice
         options:
           - ''
-          - debian-12
-          - ubuntu-2204
-          - ubuntu-2404
-          - rockylinux-9
-          - amazonlinux-2023
+          - kitchen-debian-12
+          - kitchen-ubuntu-2204
+          - kitchen-ubuntu-2404
+          - kitchen-rockylinux-9
+          - kitchen-amazonlinux-2023
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAMESPACE: ghcr.io/${{ github.repository_owner }}/salt-unbound-formula
 
 jobs:
   build:
@@ -34,17 +33,22 @@ jobs:
       fail-fast: false
       matrix:
         platform:
-          - debian-12
-          - ubuntu-2204
-          - ubuntu-2404
-          - rockylinux-9
-          - amazonlinux-2023
+          - kitchen-debian-12
+          - kitchen-ubuntu-2204
+          - kitchen-ubuntu-2404
+          - kitchen-rockylinux-9
+          - kitchen-amazonlinux-2023
     steps:
       - name: Skip if specific platform requested and this is not it
         if: inputs.platform != '' && inputs.platform != matrix.platform
         run: |
           echo "Skipping ${{ matrix.platform }} (requested: ${{ inputs.platform }})"
           exit 0
+
+      - name: Set image namespace (lowercase)
+        if: inputs.platform == '' || inputs.platform == matrix.platform
+        run: |
+          echo "IMAGE_NAMESPACE=ghcr.io/$(echo '${{ github.repository_owner }}' | tr '[:upper:]' '[:lower:]')/salt-unbound-formula" >> "$GITHUB_ENV"
 
       - name: Checkout
         if: inputs.platform == '' || inputs.platform == matrix.platform
