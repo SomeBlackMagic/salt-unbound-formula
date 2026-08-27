@@ -5,18 +5,14 @@ driver:
   name: docker
   use_sudo: false
   privileged: true
-  run_command: /lib/systemd/systemd
-  publish:
-    - '22'
 
 provisioner:
   name: salt_solo
   log_level: debug
-  salt_install: bootstrap
-  salt_bootstrap_url: https://github.com/saltstack/salt-bootstrap/releases/latest/download/bootstrap-salt.sh
-  salt_bootstrap_options: -dX stable
-  salt_version: latest
+  salt_install: none
   formula: unbound
+  minion_config:
+    systemd_scope: false
   state_top:
     base:
       '*':
@@ -39,7 +35,7 @@ verifier:
 platforms:
   - name: debian-12
     driver:
-      image: debian:12
+      image: ghcr.io/someblackmagic/salt-unbound-formula/debian-12:latest
       run_command: /lib/systemd/systemd
       env:
         - container=docker
@@ -48,12 +44,10 @@ platforms:
         - /run/lock
       volume:
         - /sys/fs/cgroup:/sys/fs/cgroup:rw
-      provision_command:
-        - apt-get update && apt-get install -y systemd-sysv
 
   - name: ubuntu-2204
     driver:
-      image: ubuntu:22.04
+      image: ghcr.io/someblackmagic/salt-unbound-formula/ubuntu-2204:latest
       run_command: /lib/systemd/systemd
       env:
         - container=docker
@@ -62,12 +56,10 @@ platforms:
         - /run/lock
       volume:
         - /sys/fs/cgroup:/sys/fs/cgroup:rw
-      provision_command:
-        - apt-get update && apt-get install -y systemd-sysv
 
   - name: ubuntu-2404
     driver:
-      image: ubuntu:24.04
+      image: ghcr.io/someblackmagic/salt-unbound-formula/ubuntu-2404:latest
       run_command: /lib/systemd/systemd
       env:
         - container=docker
@@ -76,19 +68,15 @@ platforms:
         - /run/lock
       volume:
         - /sys/fs/cgroup:/sys/fs/cgroup:rw
-      provision_command:
-        - apt-get update && apt-get install -y systemd-sysv
 
   - name: rockylinux-9
     driver:
-      image: rockylinux:9
+      image: ghcr.io/someblackmagic/salt-unbound-formula/rockylinux-9:latest
       run_command: /usr/lib/systemd/systemd
-      provision_command:
-        - dnf install -y systemd
 
   - name: amazonlinux-2023
     driver:
-      image: amazonlinux:2023
+      image: ghcr.io/someblackmagic/salt-unbound-formula/amazonlinux-2023:latest
       run_command: /usr/lib/systemd/systemd
       env:
         - container=docker
@@ -97,8 +85,6 @@ platforms:
         - /run/lock
       volume:
         - /sys/fs/cgroup:/sys/fs/cgroup:rw
-      provision_command:
-        - dnf install -y systemd
 
 suites:
   - name: default
