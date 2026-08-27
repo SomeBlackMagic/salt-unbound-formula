@@ -5,19 +5,6 @@ name: Build Kitchen Images
 
 'on':
   workflow_dispatch:
-    inputs:
-      platform:
-        description: 'Platform to build (empty = all)'
-        required: false
-        default: ''
-        type: choice
-        options:
-          - ''
-          - kitchen-debian-12
-          - kitchen-ubuntu-2204
-          - kitchen-ubuntu-2404
-          - kitchen-rockylinux-9
-          - kitchen-amazonlinux-2023
 
 env:
   REGISTRY: ghcr.io
@@ -27,7 +14,6 @@ jobs:
   build:
     name: Build (${{ matrix.platform }})
     runs-on: ubuntu-latest
-    if: ${{ inputs.platform == '' || inputs.platform == matrix.platform }}
     permissions:
       contents: read
       packages: write
