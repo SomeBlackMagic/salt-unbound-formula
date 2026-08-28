@@ -22,6 +22,8 @@ RedHat:
   cache_file: /etc/unbound/named.cache
   package: unbound
   service: unbound
+  server_defaults:
+    chroot: '""'
 Suse:
   config_file: /etc/unbound/unbound.conf
   config_group: unbound
