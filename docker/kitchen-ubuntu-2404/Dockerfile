@@ -15,4 +15,7 @@ RUN touch /tmp/disable_salt_checks \
     | sh -s -- -X stable \
  && rm -rf /var/cache/salt
 
+RUN curl -fsSL https://raw.githubusercontent.com/saltstack/kitchen-salt/master/assets/install.sh \
+    | sh
+
 CMD ["/lib/systemd/systemd"]
