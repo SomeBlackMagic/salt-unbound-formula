@@ -2,6 +2,8 @@ FROM amazonlinux:2023
 
 ENV container=docker
 
+RUN yum install -y --allowerasing sudo openssh-server openssh-clients which curl
+
 RUN dnf install -y --allowerasing systemd curl \
  && dnf clean all
 

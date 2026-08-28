@@ -14,7 +14,8 @@ provisioner:
   require_chef: false
   formula: unbound
   minion_config:
-    systemd_scope: false
+    systemd:
+      scope: false
   state_top:
     base:
       '*':
@@ -79,11 +80,22 @@ platforms:
     driver:
       image: ghcr.io/someblackmagic/salt-unbound-formula/kitchen-amazonlinux-2023:latest
       run_command: /usr/lib/systemd/systemd
+      username: root
       env:
         - container=docker
       tmpfs:
         - /run
         - /run/lock
+    transport:
+      name: docker
+      username: root
+      temp_dir: /var/tmp
+    provisioner:
+      root_path: /var/tmp/kitchen
+      sudo: false
+    verifier:
+      root_path: /var/tmp/verifier
+      sudo: false
 
   - name: centos-stream-9
     driver:
