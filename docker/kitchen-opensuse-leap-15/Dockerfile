@@ -11,7 +11,11 @@ RUN touch /tmp/disable_salt_checks \
     | sh -s -- -X stable \
  && rm -rf /var/cache/salt
 
-RUN curl -fsSL https://raw.githubusercontent.com/saltstack/kitchen-salt/master/assets/install.sh \
-    | sh
+RUN zypper --non-interactive install --no-recommends \
+      ruby ruby-devel git \
+ && zypper clean --all \
+ && mkdir -p /opt/chef/embedded/bin \
+ && ln -sf "$(which ruby)" /opt/chef/embedded/bin/ruby \
+ && ln -sf "$(which gem)" /opt/chef/embedded/bin/gem
 
 CMD ["/usr/lib/systemd/systemd"]

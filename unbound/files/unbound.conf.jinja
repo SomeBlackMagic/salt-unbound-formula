@@ -53,7 +53,7 @@ server:
 {%- if config.server.options is defined %}
     # some config options
     {%- for option in config.server.options %}
-    {{option.key}}: {{option.value}}
+    {{option.key}}: {{ 'yes' if option.value is sameas true else ('no' if option.value is sameas false else option.value) }}
     {%- endfor %}
 {%- endif -%}
 
@@ -65,7 +65,7 @@ server:
 stub-zone:
     name: "{{ zone.zonename }}"
         {%- for option in zone.options %}
-    {{option.key}}: {{option.value}}
+    {{option.key}}: {{ 'yes' if option.value is sameas true else ('no' if option.value is sameas false else option.value) }}
         {%- endfor %}
     {% endfor %}
 {%- endif -%}
@@ -78,7 +78,7 @@ stub-zone:
 forward-zone:
     name: "{{ zone.zonename }}"
         {%- for option in zone.options %}
-    {{option.key}}: {{option.value}}
+    {{option.key}}: {{ 'yes' if option.value is sameas true else ('no' if option.value is sameas false else option.value) }}
         {%- endfor %}
     {% endfor %}
 {%- endif -%}
@@ -86,7 +86,7 @@ forward-zone:
 {%- if config.get('remote') and config.remote.options is defined %}
 remote-control:
   {%- for option in config.remote.options %}
-    {{option.key}}: {{option.value}}
+    {{option.key}}: {{ 'yes' if option.value is sameas true else ('no' if option.value is sameas false else option.value) }}
   {%- endfor %}
 {%- endif -%}
 

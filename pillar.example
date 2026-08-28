@@ -42,17 +42,17 @@ unbound:
       - key: verbosity
         value: 1
       - key: use-syslog
-        value: yes
+        value: "yes"
       - key: hide-identity
-        value: yes
+        value: "yes"
       - key: hide-version
-        value: yes
+        value: "yes"
       - key: harden-glue
-        value: yes
+        value: "yes"
       - key: harden-dnssec-stripped
-        value: yes
+        value: "yes"
       - key: use-caps-for-id
-        value: yes
+        value: "yes"
       - key: num-threads
         value: 4
       - key: rrset-cache-size

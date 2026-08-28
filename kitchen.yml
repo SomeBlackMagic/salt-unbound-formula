@@ -5,6 +5,7 @@ driver:
   name: docker
   use_sudo: false
   privileged: true
+  cgroupns_mode: private
 
 provisioner:
   name: salt_solo
@@ -42,8 +43,6 @@ platforms:
       tmpfs:
         - /run
         - /run/lock
-      volume:
-        - /sys/fs/cgroup:/sys/fs/cgroup:rw
 
   - name: ubuntu-2204
     driver:
@@ -54,8 +53,6 @@ platforms:
       tmpfs:
         - /run
         - /run/lock
-      volume:
-        - /sys/fs/cgroup:/sys/fs/cgroup:rw
 
   - name: ubuntu-2404
     driver:
@@ -66,8 +63,6 @@ platforms:
       tmpfs:
         - /run
         - /run/lock
-      volume:
-        - /sys/fs/cgroup:/sys/fs/cgroup:rw
 
   - name: rockylinux-9
     driver:
@@ -83,8 +78,6 @@ platforms:
       tmpfs:
         - /run
         - /run/lock
-      volume:
-        - /sys/fs/cgroup:/sys/fs/cgroup:rw
 
   - name: centos-stream-9
     driver:
