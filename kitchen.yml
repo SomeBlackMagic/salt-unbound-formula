@@ -68,6 +68,11 @@ platforms:
     driver:
       image: ghcr.io/someblackmagic/salt-unbound-formula/kitchen-rockylinux-9:latest
       run_command: /usr/lib/systemd/systemd
+      env:
+        - container=docker
+      tmpfs:
+        - /run
+        - /run/lock
 
   - name: amazonlinux-2023
     driver:
@@ -83,16 +88,31 @@ platforms:
     driver:
       image: ghcr.io/someblackmagic/salt-unbound-formula/kitchen-centos-stream-9:latest
       run_command: /usr/lib/systemd/systemd
+      env:
+        - container=docker
+      tmpfs:
+        - /run
+        - /run/lock
 
   - name: almalinux-9
     driver:
       image: ghcr.io/someblackmagic/salt-unbound-formula/kitchen-almalinux-9:latest
       run_command: /usr/lib/systemd/systemd
+      env:
+        - container=docker
+      tmpfs:
+        - /run
+        - /run/lock
 
   - name: opensuse-leap-15
     driver:
       image: ghcr.io/someblackmagic/salt-unbound-formula/kitchen-opensuse-leap-15:latest
       run_command: /usr/lib/systemd/systemd
+      env:
+        - container=docker
+      tmpfs:
+        - /run
+        - /run/lock
 
 suites:
   - name: default
