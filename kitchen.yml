@@ -32,6 +32,7 @@ provisioner:
 verifier:
   name: inspec
   sudo: true
+  cli_options: '--chef-license accept-no-persist'
 
 platforms:
   - name: debian-12
