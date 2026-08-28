@@ -2,7 +2,7 @@ FROM amazonlinux:2023
 
 ENV container=docker
 
-RUN dnf install -y systemd curl \
+RUN dnf install -y --allowerasing systemd curl \
  && dnf clean all
 
 RUN touch /tmp/disable_salt_checks \
