@@ -11,6 +11,12 @@
 # server section
 #
 server:
+{%- if config.server_defaults is defined %}
+    # Platform-specific server defaults
+    {%- for option, value in config.server_defaults.items() %}
+    {{ option }}: {{ value }}
+    {%- endfor %}
+{%- endif %}
     # The following line will configure unbound to perform cryptographic
     # DNSSEC validation using the root trust anchor.
     auto-trust-anchor-file: "/var/lib/unbound/root.key"
@@ -89,4 +95,3 @@ remote-control:
     {{option.key}}: {{ 'yes' if option.value is sameas true else ('no' if option.value is sameas false else option.value) }}
   {%- endfor %}
 {%- endif -%}
-

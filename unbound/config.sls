@@ -9,7 +9,7 @@ unbound_config:
     - source: salt://{{ slspath }}/files/unbound.conf.jinja
     - template: jinja
     - user: root
-    - group: root
+    - group: {{ unbound.get('config_group', 'root') }}
     - mode: '0440'
     - context:
         config: {{ unbound | json }}

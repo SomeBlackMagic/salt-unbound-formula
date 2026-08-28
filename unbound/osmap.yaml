@@ -22,4 +22,14 @@ RedHat:
   cache_file: /etc/unbound/named.cache
   package: unbound
   service: unbound
-Suse: {}
+Suse:
+  config_file: /etc/unbound/unbound.conf
+  config_group: unbound
+  cache_file: /etc/unbound/named.cache
+  package: unbound
+  service: unbound
+  server_defaults:
+    chroot: '""'
+    username: '"unbound"'
+    directory: '"/etc/unbound"'
+    pidfile: '"/var/run/unbound/unbound.pid"'

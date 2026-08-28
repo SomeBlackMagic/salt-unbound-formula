@@ -11,6 +11,7 @@ provisioner:
   name: salt_solo
   log_level: debug
   salt_install: none
+  require_chef: false
   formula: unbound
   minion_config:
     systemd_scope: false

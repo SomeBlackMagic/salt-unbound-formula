@@ -21,6 +21,8 @@ cache_file =
     '/etc/unbound/named.cache'
   end
 
+config_group = os_family == 'suse' ? 'unbound' : 'root'
+
 control 'unbound-package' do
   impact 1.0
   title 'Unbound package is installed'
@@ -48,7 +50,7 @@ control 'unbound-config' do
     it { should exist }
     it { should be_file }
     its('owner') { should eq 'root' }
-    its('group') { should eq 'root' }
+    its('group') { should eq config_group }
     its('mode') { should cmp '0440' }
   end
 end
