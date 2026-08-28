@@ -49,10 +49,6 @@ Clone the repository into your ``file_roots``:
 Then symlink (or add ``/srv/salt/unbound-formula`` to ``file_roots``) so the ``unbound`` directory
 is reachable as ``salt://unbound``.
 
-Option 3: Salt Shaker / formula dependency manager
----------------------------------------------------
-
-Follow the conventions of your chosen formula manager and point it at this repository.
 
 Available States
 ================
