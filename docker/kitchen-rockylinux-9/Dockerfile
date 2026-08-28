@@ -3,12 +3,9 @@ FROM rockylinux:9
 RUN dnf install -y systemd curl \
  && dnf clean all
 
-RUN printf '#!/bin/sh\nexit 0\n' > /usr/local/bin/systemctl \
- && chmod +x /usr/local/bin/systemctl \
+RUN touch /tmp/disable_salt_checks \
  && curl -fsSL https://github.com/saltstack/salt-bootstrap/releases/latest/download/bootstrap-salt.sh \
     | sh -s -- -X stable \
- && rm /usr/local/bin/systemctl \
- && rm -rf /var/cache/salt \
- && ln -sf /dev/null /etc/systemd/system/salt-minion.service
+ && rm -rf /var/cache/salt
 
 CMD ["/usr/lib/systemd/systemd"]

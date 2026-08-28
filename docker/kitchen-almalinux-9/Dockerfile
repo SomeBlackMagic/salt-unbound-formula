@@ -1,6 +1,4 @@
-FROM amazonlinux:2023
-
-ENV container=docker
+FROM almalinux:9
 
 RUN dnf install -y systemd curl \
  && dnf clean all

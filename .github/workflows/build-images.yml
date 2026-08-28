@@ -26,6 +26,9 @@ jobs:
           - kitchen-ubuntu-2404
           - kitchen-rockylinux-9
           - kitchen-amazonlinux-2023
+          - kitchen-centos-stream-9
+          - kitchen-almalinux-9
+          - kitchen-opensuse-leap-15
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4

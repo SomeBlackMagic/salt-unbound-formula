@@ -1,9 +1,10 @@
-FROM amazonlinux:2023
+FROM opensuse/leap:15
 
-ENV container=docker
-
-RUN dnf install -y systemd curl \
- && dnf clean all
+RUN zypper --non-interactive install --no-recommends \
+      systemd \
+      curl \
+      ca-certificates \
+ && zypper clean --all
 
 RUN touch /tmp/disable_salt_checks \
  && curl -fsSL https://github.com/saltstack/salt-bootstrap/releases/latest/download/bootstrap-salt.sh \

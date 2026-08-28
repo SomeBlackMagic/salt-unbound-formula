@@ -68,6 +68,9 @@ jobs:
           - default-ubuntu-2404
           - default-rockylinux-9
           - default-amazonlinux-2023
+          - default-centos-stream-9
+          - default-almalinux-9
+          - default-opensuse-leap-15
     steps:
       - name: Checkout
         uses: actions/checkout@v4

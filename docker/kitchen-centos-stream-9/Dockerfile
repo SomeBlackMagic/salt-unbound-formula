@@ -1,6 +1,4 @@
-FROM amazonlinux:2023
-
-ENV container=docker
+FROM quay.io/centos/centos:stream9
 
 RUN dnf install -y systemd curl \
  && dnf clean all

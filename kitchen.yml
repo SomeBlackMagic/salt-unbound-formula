@@ -9,7 +9,10 @@ driver:
 provisioner:
   name: salt_solo
   log_level: debug
-  salt_install: none
+  salt_install: bootstrap
+  salt_bootstrap_url: https://github.com/saltstack/salt-bootstrap/releases/latest/download/bootstrap-salt.sh
+  salt_bootstrap_options: -dX stable
+  salt_version: latest
   formula: unbound
   minion_config:
     systemd_scope: false
@@ -85,6 +88,21 @@ platforms:
         - /run/lock
       volume:
         - /sys/fs/cgroup:/sys/fs/cgroup:rw
+
+  - name: centos-stream-9
+    driver:
+      image: ghcr.io/someblackmagic/salt-unbound-formula/kitchen-centos-stream-9:latest
+      run_command: /usr/lib/systemd/systemd
+
+  - name: almalinux-9
+    driver:
+      image: ghcr.io/someblackmagic/salt-unbound-formula/kitchen-almalinux-9:latest
+      run_command: /usr/lib/systemd/systemd
+
+  - name: opensuse-leap-15
+    driver:
+      image: ghcr.io/someblackmagic/salt-unbound-formula/kitchen-opensuse-leap-15:latest
+      run_command: /usr/lib/systemd/systemd
 
 suites:
   - name: default
