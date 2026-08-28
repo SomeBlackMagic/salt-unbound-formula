@@ -1,5 +1,6 @@
 FROM quay.io/centos/centos:stream9
 
+RUN yum install -y sudo openssh-server openssh-clients which
 RUN dnf install -y --allowerasing systemd curl \
  && dnf clean all
 

@@ -1,5 +1,7 @@
 FROM opensuse/leap:15
 
+RUN zypper install -y sudo openssh which curl gawk
+
 RUN zypper --non-interactive install --no-recommends \
       systemd \
       curl \
